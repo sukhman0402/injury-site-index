@@ -145,6 +145,24 @@
   footer .fmeta{font-size:12.5px; color:var(--muted); margin-top:10px; line-height:1.8;}
   footer .fcredit{font-family:var(--font-primary); font-weight:600; font-size:14px; margin-top:18px;}
   footer a.back{display:inline-block; margin-top:22px; font-size:12.5px; color:var(--muted); text-decoration:none;}
+  /* ===== Redesigned D3 charts ===== */
+  .viz-controls{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:14px;}
+  .viz-controls .lbl{font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); font-weight:600; margin-right:4px;}
+  .viz-btn{font-family:var(--font-primary); font-size:12px; font-weight:600; padding:6px 13px; border-radius:100px; border:1px solid var(--card-border); background:var(--white); color:var(--muted); cursor:pointer; transition:all .18s;}
+  .viz-btn:hover{border-color:var(--black); color:var(--black);}
+  .viz-btn.on{background:var(--black); border-color:var(--black); color:var(--white);}
+  .viz-btn .sw{display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:6px; vertical-align:0;}
+  .viz-sep{width:1px; height:20px; background:var(--card-border); margin:0 6px;}
+  .viz svg text{font-family:var(--font-secondary);}
+  .viz .tick text{font-size:10.5px; fill:var(--muted);}
+  .viz .grid-line{stroke:#E6E8E9; stroke-width:1;}
+  .viz .grid-line.dash{stroke-dasharray:2 3;}
+  .viz .anno{font-size:11.5px; fill:#26292b;}
+  .viz .anno-strong{font-family:var(--font-primary); font-weight:600; font-size:12.5px; fill:var(--black);}
+  .viz .muted-t{font-size:10.5px; fill:var(--muted);}
+  .viz .center-big{font-family:var(--font-primary); font-weight:700; font-size:30px; fill:var(--black);}
+  .viz .center-small{font-size:11px; fill:var(--muted); text-transform:uppercase; letter-spacing:0.06em;}
+  .viz .dimmable{transition:opacity .2s;}
 </style>
 </head>
 <body>
@@ -231,8 +249,8 @@
     <h2 class="sec-title">What the two confirmed baselines already show</h2>
     <p class="sec-desc">Both independently published, all-cause Indian pediatric trauma cohorts agree on one thing before any TITCO-specific test is even run: the upper limb (arm) is the single most affected region.</p>
     <div class="chart-card">
-      <div id="chart-bodyregion" style="width:100%; min-height:420px;"></div>
-      <div class="chart-caption"><b>Fig 3.1</b>: Arm vs. Leg share of all-cause pediatric musculoskeletal injury, Delhi (n=100) and South India (n=438). Neck and Back are excluded from this comparison: Delhi only reports a combined "Head &amp; Neck" category, and neither study isolates Back the way this project's keyword extraction does for TITCO; a real category-mapping limitation, not an oversight.</div>
+      <div id="chart-bodyregion" style="width:100%; min-height:430px;"></div>
+      <div class="chart-caption"><b>Fig 3.1</b>: Semicircular radial bars (0 to 60% scale). Arm vs. Leg share of all-cause pediatric musculoskeletal injury, Delhi (n=100) and South India (n=438). Neck and Back are excluded from this comparison: Delhi only reports a combined "Head &amp; Neck" category, and neither study isolates Back the way this project's keyword extraction does for TITCO; a real category-mapping limitation, not an oversight.</div>
     </div>
     <div class="key-finding"><strong>Key finding</strong>Arm leads in both independent cohorts (53% vs. 33% in Delhi and 22.8% vs. 20.8% in South India), despite the two studies having different mechanism mixes, different sample sizes, and different regions of India. That consistency is a real signal, though see Section 04 for how the RTA-specific TITCO test nuances this picture once it's isolated to road-traffic cases specifically.</div>
   </div>
@@ -274,8 +292,8 @@
       </tbody>
     </table>
     <div class="chart-card" style="margin-top:24px;">
-      <div id="chart-titco-ci" style="width:100%; min-height:340px;"></div>
-      <div class="chart-caption"><b>Fig 4.1</b>: TITCO-I pediatric-RTA body region breakdown with 95% Wilson CI, n=60 (1,000-row limited sample). Note the overlapping Arm/Leg error bars; visually, this is why the gap between them isn't statistically decisive at this sample size.</div>
+      <div id="chart-titco-ci" style="width:100%; min-height:400px;"></div>
+      <div class="chart-caption"><b>Fig 4.1</b>: TITCO-I pediatric-RTA body region breakdown with 95% Wilson CI, n=60 (1,000-row limited sample). Each band is a confidence interval, the dot is the point estimate. The shaded zone marks where the Arm and Leg intervals overlap (9.3 to 26.1%), which is why the gap between them isn't statistically decisive at this sample size. The dashed line at 10% is what each region would show if the 24 region matches were spread evenly (6 each), the baseline H1 tests against.</div>
     </div>
     <p style="font-size:13.5px; color:var(--muted); margin-top:18px;"><b>Sample composition, for transparency:</b> of 210 pediatric (≤17) cases in this 1,000-row sample, mechanism breakdown was Fall (100), RTA-unspecified (43), Burn (28), Assault (9), RTA-motorcyclist (8), Other (7), RTA-pedestrian (7), Railway (6), RTA-passenger (2); RTA sub-categories combine to the n=60 tested above. Falls dominating over RTA matches the Delhi baseline's own mechanism mix (falls 79%, RTA 8%), a small internal consistency check that this sample behaves as expected. 3 of the 60 RTA patients (5%) matched more than one body region (polytrauma).</p>
   </div>
@@ -287,8 +305,8 @@
     <h2 class="sec-title">South India cohort: injury site by age band</h2>
     <p class="sec-desc">This part of the South India baseline is fully real and already usable: it shows how injury-site distribution shifts across the 0–3, 4–6, 7–9, and 10–18 age bands within an all-cause pediatric trauma sample.</p>
     <div class="chart-card">
-      <div id="chart-age" style="width:100%; min-height:440px;"></div>
-      <div class="chart-caption"><b>Fig 5.1</b>: Site of injury × age group, South India cohort (n=438 patients, 732 injuries). The 10–18 band dominates raw counts in every category, as expected, since it spans the widest age range of the four bands.</div>
+      <div id="chart-age" style="width:100%; min-height:520px;"></div>
+      <div class="chart-caption"><b>Fig 5.1</b>: Radial stacked bars, one spoke per injury site, split by age band. Site of injury × age group, South India cohort (n=438 patients, 732 injuries). The 10–18 band dominates raw counts in every category, as expected, since it spans the widest age range of the four bands; switch to "Age mix per site (%)" to compare composition rather than volume. Spoke length uses a radial (area-true) scale.</div>
     </div>
   </div>
 </section>
@@ -510,110 +528,309 @@
 
   function chartWidth(sel){ return document.querySelector(sel).clientWidth || 700; }
 
-  // ================= Chart 1: Body region comparison (REAL: Delhi & South India) =================
-  const bodyRegionData = [
-    {dataset:'Delhi (all-cause, n=100)', region:'Arm', pct:53.0},
-    {dataset:'South India (all-cause, n=438)', region:'Arm', pct:22.81},
-    {dataset:'Delhi (all-cause, n=100)', region:'Leg', pct:33.0},
-    {dataset:'South India (all-cause, n=438)', region:'Leg', pct:20.77}
-  ];
+  // ================= Shared: draw a chart once it scrolls into view =================
+  function onVisible(sel, fn){
+    const el = document.querySelector(sel);
+    if(!el){ return; }
+    if(!('IntersectionObserver' in window)){ fn(); return; }
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(en=>{ if(en.isIntersecting){ io.disconnect(); fn(); } });
+    }, {threshold:0.25});
+    io.observe(el);
+  }
+  const BLUE = '#5EC1E4', GREEN = '#2CE38A';
+
+  // ================= Fig 3.1: Delhi vs South India, semicircular radial bars =================
   (function(){
-    const width = chartWidth('#chart-bodyregion'), height = 420;
-    const margin = {top:30,right:200,bottom:50,left:50};
-    const datasets = [...new Set(bodyRegionData.map(d=>d.dataset))];
-    const regions = [...new Set(bodyRegionData.map(d=>d.region))];
-    const x0 = d3.scaleBand().domain(regions).range([margin.left,width-margin.right]).paddingInner(0.3);
-    const x1 = d3.scaleBand().domain(datasets).range([0,x0.bandwidth()]).padding(0.08);
-    const y = d3.scaleLinear().domain([0, d3.max(bodyRegionData,d=>d.pct)*1.2]).nice().range([height-margin.bottom,margin.top]);
-    const color = d3.scaleOrdinal().domain(datasets).range(['#5EC1E4','#2CE38A']);
-    const svg = d3.select('#chart-bodyregion').html('').append('svg').attr('viewBox',[0,0,width,height]).attr('width','100%').attr('height',height);
-    const groups = svg.append('g').selectAll('g').data(regions).join('g').attr('transform',r=>'translate('+x0(r)+',0)');
-    groups.selectAll('rect').data(r=>datasets.map(ds=>{
-      const rec = bodyRegionData.find(d=>d.region===r && d.dataset===ds);
-      return {dataset:ds, region:r, pct: rec? rec.pct:0};
-    })).join('rect')
-      .attr('x', d=>x1(d.dataset)).attr('y', d=>y(d.pct)).attr('width', x1.bandwidth()).attr('height', d=>y(0)-y(d.pct))
-      .attr('fill', d=>color(d.dataset)).attr('rx',3)
-      .on('mouseover',(e,d)=>showTip(d.dataset+'<br>'+d.region+': '+d.pct.toFixed(1)+'%',e))
-      .on('mousemove',moveTip).on('mouseout',hideTip);
-    svg.append('g').attr('transform','translate(0,'+(height-margin.bottom)+')').call(d3.axisBottom(x0)).call(g=>g.select('.domain').attr('stroke','#000'));
-    svg.append('g').attr('transform','translate('+margin.left+',0)').call(d3.axisLeft(y).tickFormat(d=>d+'%')).call(g=>g.select('.domain').remove());
-    const legend = svg.append('g').attr('transform','translate('+(width-margin.right+16)+','+margin.top+')');
-    datasets.forEach((ds,i)=>{
-      const g = legend.append('g').attr('transform','translate(0,'+(i*20)+')');
-      g.append('rect').attr('width',11).attr('height',11).attr('fill',color(ds)).attr('rx',2);
-      g.append('text').attr('x',16).attr('y',10).attr('font-size',11).text(ds);
+    const rings = [
+      {region:'Arm', cohort:'Delhi', label:'Delhi (all-cause, n=100)', pct:53.0},
+      {region:'Arm', cohort:'South India', label:'South India (all-cause, n=438)', pct:22.81},
+      {region:'Leg', cohort:'Delhi', label:'Delhi (all-cause, n=100)', pct:33.0},
+      {region:'Leg', cohort:'South India', label:'South India (all-cause, n=438)', pct:20.77}
+    ];
+    const color = c => c==='Delhi' ? BLUE : GREEN;
+    const host = d3.select('#chart-bodyregion').html('');
+    const ctr = host.append('div').attr('class','viz-controls');
+    ctr.append('span').attr('class','lbl').text('Cohort');
+    const opts = [{k:'both',t:'Both'},{k:'Delhi',t:'Delhi',c:BLUE},{k:'South India',t:'South India',c:GREEN}];
+    const btns = ctr.selectAll('button').data(opts).join('button')
+      .attr('class',d=>'viz-btn'+(d.k==='both'?' on':''))
+      .html(d=>(d.c?'<span class="sw" style="background:'+d.c+'"></span>':'')+d.t);
+
+    const width = chartWidth('#chart-bodyregion'), height = Math.min(430, width*0.62);
+    const cx = width/2, cy = height-56;
+    const R = Math.min(width/2-60, cy-34);
+    const th = Math.max(16, Math.min(30, R*0.11)), gap = 6, groupGap = 20;
+    const radii = [];
+    let r = R;
+    rings.forEach((d,i)=>{ if(i===2){ r -= groupGap; } radii.push({outer:r, inner:r-th}); r -= th+gap; });
+    const maxPct = 60;
+    const ang = d3.scaleLinear().domain([0,maxPct]).range([-Math.PI/2, Math.PI/2]);
+    const svg = host.append('svg').attr('class','viz').attr('viewBox',[0,0,width,height]).attr('width','100%').attr('height',height);
+    const g = svg.append('g').attr('transform','translate('+cx+','+cy+')');
+
+    // radial grid + tick labels
+    d3.range(0,maxPct+1,10).forEach(t=>{
+      const a = ang(t) - Math.PI/2;
+      g.append('line').attr('class','grid-line dash')
+        .attr('x1',Math.cos(a)*(radii[3].inner-6)).attr('y1',Math.sin(a)*(radii[3].inner-6))
+        .attr('x2',Math.cos(a)*(R+8)).attr('y2',Math.sin(a)*(R+8));
+      g.append('text').attr('class','muted-t').attr('text-anchor','middle')
+        .attr('x',Math.cos(a)*(R+22)).attr('y',Math.sin(a)*(R+22)+4).text(t+'%');
+    });
+    // background tracks
+    const arc = d3.arc().cornerRadius(3);
+    rings.forEach((d,i)=>{
+      g.append('path').attr('fill','#F1F3F4')
+        .attr('d',arc({innerRadius:radii[i].inner, outerRadius:radii[i].outer, startAngle:-Math.PI/2, endAngle:Math.PI/2}));
+    });
+    // region labels under the baseline
+    [['Arm',0,1],['Leg',2,3]].forEach(([name,a,b])=>{
+      const mid = (radii[a].outer + radii[b].inner)/2;
+      g.append('text').attr('class','anno-strong').attr('text-anchor','middle').attr('x',-mid).attr('y',22).text(name);
+    });
+    // value arcs
+    const bars = g.selectAll('path.val').data(rings).join('path')
+      .attr('class','val dimmable').attr('fill',d=>color(d.cohort)).style('cursor','pointer')
+      .attr('d',(d,i)=>arc({innerRadius:radii[i].inner, outerRadius:radii[i].outer, startAngle:-Math.PI/2, endAngle:-Math.PI/2}))
+      .on('mouseover',(e,d)=>{ showTip('<b>'+d.region+'</b><br>'+d.label+': '+d.pct.toFixed(1)+'%',e); highlight(d.cohort); })
+      .on('mousemove',moveTip).on('mouseout',()=>{ hideTip(); highlight(state); });
+    const vals = g.selectAll('text.vl').data(rings).join('text')
+      .attr('class','vl anno-strong dimmable').attr('font-size',11).attr('opacity',0)
+      .attr('text-anchor','start')
+      .each(function(d,i){
+        const a = ang(d.pct) - Math.PI/2 + 0.035, rm = (radii[i].inner+radii[i].outer)/2;
+        d3.select(this).attr('x',Math.cos(a)*rm).attr('y',Math.sin(a)*rm+4).text(d.pct.toFixed(1)+'%');
+      });
+    // centre annotation
+    const c1 = g.append('text').attr('class','center-small').attr('text-anchor','middle').attr('y',-46).text('Arm lead over Leg');
+    const cD = g.append('text').attr('class','anno-strong dimmable').attr('text-anchor','middle').attr('y',-22).style('fill','#2A9FCB').text('Delhi  +20.0 pts');
+    const cS = g.append('text').attr('class','anno-strong dimmable').attr('text-anchor','middle').attr('y',-2).style('fill','#13A866').text('South India  +2.0 pts');
+
+    let state = 'both';
+    function highlight(k){
+      bars.attr('opacity',d=> (k==='both'||d.cohort===k)?1:0.15);
+      vals.attr('opacity',d=> (k==='both'||d.cohort===k)?1:0.15);
+      cD.attr('opacity',(k==='both'||k==='Delhi')?1:0.2);
+      cS.attr('opacity',(k==='both'||k==='South India')?1:0.2);
+    }
+    btns.on('click',(e,d)=>{ state=d.k; btns.classed('on',b=>b.k===d.k); highlight(state); });
+
+    onVisible('#chart-bodyregion', ()=>{
+      bars.transition().duration(1100).delay((d,i)=>i*140).ease(d3.easeCubicOut)
+        .attrTween('d',function(d){
+          const i = rings.indexOf(d), interp = d3.interpolate(-Math.PI/2, ang(d.pct));
+          return t=>arc({innerRadius:radii[i].inner, outerRadius:radii[i].outer, startAngle:-Math.PI/2, endAngle:interp(t)});
+        });
+      vals.transition().delay((d,i)=>900+i*140).duration(300).attr('opacity',1);
     });
   })();
 
-  // ================= Chart 2: South India age breakdown (REAL) =================
-  const ageData = [];
-  const ageRows = {
-    'Head':[20,22,19,99],'Face':[21,27,15,81],'Back':[4,1,2,5],'Chest':[6,4,6,26],
-    'Upper limb':[15,14,16,122],'Abdomen':[3,2,3,10],'Pelvis':[2,1,5,23],'Lower limb':[8,19,10,115],'Polytrauma':[1,1,1,3]
-  };
-  const ageGroups = ['0-3','4-6','7-9','10-18'];
-  Object.keys(ageRows).forEach(site=>{
-    ageRows[site].forEach((count,i)=> ageData.push({age_group:ageGroups[i], site:site, count:count}));
-  });
+  // ================= Fig 5.1: South India age x site, radial stacked bars =================
   (function(){
-    const width = chartWidth('#chart-age'), height = 440;
-    const margin = {top:30,right:170,bottom:50,left:50};
-    const sites = Object.keys(ageRows);
-    const stackData = ageGroups.map(ag=>{
-      const row = {age_group:ag};
-      sites.forEach(s=> row[s] = ageData.find(d=>d.age_group===ag && d.site===s).count );
-      return row;
-    });
-    const stack = d3.stack().keys(sites)(stackData);
-    const x = d3.scaleBand().domain(ageGroups).range([margin.left,width-margin.right]).padding(0.32);
-    const y = d3.scaleLinear().domain([0, d3.max(stack[stack.length-1],d=>d[1])*1.08]).nice().range([height-margin.bottom,margin.top]);
-    const color = d3.scaleOrdinal().domain(sites).range(d3.schemeTableau10.concat(d3.schemeSet2));
-    const svg = d3.select('#chart-age').html('').append('svg').attr('viewBox',[0,0,width,height]).attr('width','100%').attr('height',height);
-    svg.append('g').selectAll('g').data(stack).join('g').attr('fill',d=>color(d.key))
-      .selectAll('rect').data(d=>d.map(v=>({y0:v[0],y1:v[1],age_group:v.data.age_group,key:d.key,count:v.data[d.key]})))
-      .join('rect')
-      .attr('x', d=>x(d.age_group)).attr('y', d=>y(d.y1)).attr('height', d=>y(d.y0)-y(d.y1)).attr('width', x.bandwidth())
-      .on('mouseover',(e,d)=>showTip(d.key+', age '+d.age_group+': '+d.count,e)).on('mousemove',moveTip).on('mouseout',hideTip);
-    svg.append('g').attr('transform','translate(0,'+(height-margin.bottom)+')').call(d3.axisBottom(x)).call(g=>g.select('.domain').attr('stroke','#000'));
-    svg.append('g').attr('transform','translate('+margin.left+',0)').call(d3.axisLeft(y)).call(g=>g.select('.domain').remove());
-    const legend = svg.append('g').attr('transform','translate('+(width-margin.right+16)+','+margin.top+')');
-    sites.forEach((s,i)=>{
-      const g = legend.append('g').attr('transform','translate(0,'+(i*20)+')');
-      g.append('rect').attr('width',11).attr('height',11).attr('fill',color(s)).attr('rx',2);
-      g.append('text').attr('x',16).attr('y',10).attr('font-size',11).text(s);
+    const ageGroups = ['0-3','4-6','7-9','10-18'];
+    const ageRows = {
+      'Head':[20,22,19,99],'Face':[21,27,15,81],'Back':[4,1,2,5],'Chest':[6,4,6,26],
+      'Upper limb':[15,14,16,122],'Abdomen':[3,2,3,10],'Pelvis':[2,1,5,23],'Lower limb':[8,19,10,115],'Polytrauma':[1,1,1,3]
+    };
+    const rows = Object.keys(ageRows).map(s=>{
+      const o = {site:s, total:d3.sum(ageRows[s])};
+      ageGroups.forEach((a,i)=>o[a]=ageRows[s][i]);
+      return o;
+    }).sort((a,b)=>b.total-a.total);
+    const grand = d3.sum(rows,d=>d.total);
+    const ageColor = d3.scaleOrdinal().domain(ageGroups).range(['#C9EEF9','#5EC1E4','#2FB89F','#2CE38A']);
+
+    const host = d3.select('#chart-age').html('');
+    const ctr = host.append('div').attr('class','viz-controls');
+    ctr.append('span').attr('class','lbl').text('View');
+    const modeBtns = ctr.selectAll('button.mode').data([{k:'count',t:'Injury count'},{k:'share',t:'Age mix per site (%)'}]).join('button')
+      .attr('class',d=>'viz-btn mode'+(d.k==='count'?' on':'')).text(d=>d.t);
+    ctr.append('span').attr('class','viz-sep');
+    ctr.append('span').attr('class','lbl').text('Age band');
+    const ageBtns = ctr.selectAll('button.age').data(['All'].concat(ageGroups)).join('button')
+      .attr('class',d=>'viz-btn age'+(d==='All'?' on':''))
+      .html(d=>(d==='All'?'':'<span class="sw" style="background:'+ageColor(d)+'"></span>')+d);
+
+    const width = chartWidth('#chart-age'), height = Math.min(560, Math.max(420, width*0.7));
+    const outer = Math.min(width, height)/2 - 48, inner = outer*0.36;
+    const svg = host.append('svg').attr('class','viz').attr('viewBox',[0,0,width,height]).attr('width','100%').attr('height',height);
+    const g = svg.append('g').attr('transform','translate('+(width/2)+','+(height/2)+')');
+    const x = d3.scaleBand().domain(rows.map(d=>d.site)).range([0,2*Math.PI]).padding(0.14);
+    const yCount = d3.scaleRadial().domain([0, d3.max(rows,d=>d.total)]).range([inner, outer]);
+    const yShare = d3.scaleLinear().domain([0,1]).range([inner, outer]);
+    let mode = 'count', focusAge = 'All';
+
+    const gridG = g.append('g');
+    let gridLblG = null;
+    function drawGrid(){
+      gridG.selectAll('*').remove();
+      gridLblG.selectAll('*').remove();
+      const ticks = mode==='count' ? [40,80,120,160] : [0.25,0.5,0.75,1];
+      const y = mode==='count' ? yCount : yShare;
+      ticks.forEach(t=>{
+        gridG.append('circle').attr('class','grid-line dash').attr('fill','none').attr('r',y(t));
+        gridLblG.append('text').attr('class','muted-t').attr('text-anchor','end').attr('x',-5).attr('y',-y(t)-3)
+          .attr('paint-order','stroke').attr('stroke','#fff').attr('stroke-width',3)
+          .text(mode==='count'? t : Math.round(t*100)+'%');
+      });
+    }
+
+    const stack = d3.stack().keys(ageGroups);
+    const seriesCount = stack(rows);
+    const seriesShare = stack(rows.map(r=>{ const o={site:r.site,total:r.total}; ageGroups.forEach(a=>o[a]=r[a]/r.total); return o; }));
+    const arc = d3.arc().padAngle(0.012).padRadius(inner).cornerRadius(2)
+      .startAngle(d=>x(d.data.site)).endAngle(d=>x(d.data.site)+x.bandwidth());
+    function arcFor(y){ return d=>arc.innerRadius(y(d[0])).outerRadius(y(d[1]))(d); }
+
+    const layers = g.append('g').selectAll('g').data(seriesCount).join('g').attr('fill',d=>ageColor(d.key)).attr('class','dimmable');
+    const segs = layers.selectAll('path').data(d=>d.map(v=>Object.assign(v,{key:d.key}))).join('path')
+      .style('cursor','pointer')
+      .attr('d',d=>arc.innerRadius(inner).outerRadius(inner)(d))
+      .on('mouseover',(e,d)=>{
+        const n = d.data[d.key] !== undefined && mode==='count' ? d.data[d.key] : rows.find(r=>r.site===d.data.site)[d.key];
+        const tot = rows.find(r=>r.site===d.data.site).total;
+        showTip('<b>'+d.data.site+'</b>, age '+d.key+'<br>'+n+' injuries ('+Math.round(n/tot*100)+'% of '+d.data.site.toLowerCase()+' injuries)',e);
+        centerNum.text(tot); centerLbl.text(d.data.site);
+        segs.attr('opacity',s=>s.data.site===d.data.site?1:0.35);
+      })
+      .on('mousemove',moveTip)
+      .on('mouseout',()=>{ hideTip(); centerNum.text(grand); centerLbl.text('injuries'); applyAge(); });
+
+    gridLblG = g.append('g').style('pointer-events','none');
+    drawGrid();
+
+    // site labels
+    const labels = g.append('g').selectAll('text').data(rows).join('text')
+      .attr('class','anno')
+      .each(function(d){
+        const a = x(d.site)+x.bandwidth()/2, rr = outer+16;
+        const px = Math.sin(a)*rr, py = -Math.cos(a)*rr, s = Math.sin(a);
+        const t = d3.select(this).attr('x',px).attr('y',py)
+          .attr('text-anchor', Math.abs(s)<0.25 ? 'middle' : (s>0?'start':'end'))
+          .attr('dy', Math.cos(a)>0.7 ? '-0.2em' : (Math.cos(a)<-0.7 ? '0.9em' : '0.35em'));
+        t.append('tspan').attr('font-weight',600).text(d.site);
+        t.append('tspan').attr('fill','#5B5F63').text('  '+d.total);
+      });
+
+    const centerNum = g.append('text').attr('class','center-big').attr('text-anchor','middle').attr('y',2).text(grand);
+    const centerLbl = g.append('text').attr('class','center-small').attr('text-anchor','middle').attr('y',20).text('injuries');
+
+    function render(dur){
+      const y = mode==='count' ? yCount : yShare;
+      const series = mode==='count' ? seriesCount : seriesShare;
+      layers.data(series);
+      segs.data((d,i)=>series[ageGroups.indexOf(d.key)].map(v=>Object.assign(v,{key:d.key})))
+        .transition().duration(dur).ease(d3.easeCubicInOut).attr('d',arcFor(y));
+      drawGrid();
+    }
+    function applyAge(){
+      segs.attr('opacity',1);
+      layers.attr('opacity',d=> (focusAge==='All'||d.key===focusAge)?1:0.12);
+    }
+    modeBtns.on('click',(e,d)=>{ mode=d.k; modeBtns.classed('on',b=>b.k===d.k); render(750); });
+    ageBtns.on('click',(e,d)=>{ focusAge=d; ageBtns.classed('on',b=>b===d); applyAge(); });
+
+    onVisible('#chart-age', ()=>{
+      segs.transition().duration(900).delay((d,i)=>i*45).ease(d3.easeCubicOut).attr('d',arcFor(yCount));
     });
   })();
 
-  // ================= Chart 3: TITCO pediatric-RTA body region + 95% Wilson CI (REAL) =================
-  const titcoCIData = [
-    {region:'Leg', percentage:16.67, lower_ci:9.31, upper_ci:28.03, count:10},
-    {region:'Arm', percentage:15.00, lower_ci:8.10, upper_ci:26.11, count:9},
-    {region:'Neck', percentage:5.00, lower_ci:1.71, upper_ci:13.70, count:3},
-    {region:'Back', percentage:3.33, lower_ci:0.92, upper_ci:11.36, count:2}
-  ];
+  // ================= Fig 4.1: TITCO pediatric-RTA, CI range chart with overlap zone =================
   (function(){
-    const width = chartWidth('#chart-titco-ci'), height = 340;
-    const margin = {top:20,right:24,bottom:44,left:50};
-    const x = d3.scaleBand().domain(titcoCIData.map(d=>d.region)).range([margin.left,width-margin.right]).padding(0.4);
-    const y = d3.scaleLinear().domain([0, d3.max(titcoCIData,d=>d.upper_ci)*1.15]).nice().range([height-margin.bottom,margin.top]);
-    const svg = d3.select('#chart-titco-ci').html('').append('svg').attr('viewBox',[0,0,width,height]).attr('width','100%').attr('height',height);
-    svg.selectAll('rect').data(titcoCIData).join('rect')
-      .attr('x', d=>x(d.region)).attr('y', d=>y(d.percentage)).attr('width', x.bandwidth()).attr('height', d=>y(0)-y(d.percentage))
-      .attr('fill','#5EC1E4').attr('rx',3)
-      .on('mouseover',(e,d)=>showTip(d.region+': '+d.percentage.toFixed(1)+'% (95% CI '+d.lower_ci.toFixed(1)+'-'+d.upper_ci.toFixed(1)+'%), n='+d.count, e))
-      .on('mousemove',moveTip).on('mouseout',hideTip);
-    const cx = d=>x(d.region)+x.bandwidth()/2;
-    svg.selectAll('line.ci').data(titcoCIData).join('line')
-      .attr('x1',cx).attr('x2',cx).attr('y1',d=>y(d.lower_ci)).attr('y2',d=>y(d.upper_ci)).attr('stroke','#111').attr('stroke-width',1.5);
-    svg.selectAll('line.cap-top').data(titcoCIData).join('line')
-      .attr('x1',d=>cx(d)-7).attr('x2',d=>cx(d)+7).attr('y1',d=>y(d.upper_ci)).attr('y2',d=>y(d.upper_ci)).attr('stroke','#111').attr('stroke-width',1.5);
-    svg.selectAll('line.cap-bot').data(titcoCIData).join('line')
-      .attr('x1',d=>cx(d)-7).attr('x2',d=>cx(d)+7).attr('y1',d=>y(d.lower_ci)).attr('y2',d=>y(d.lower_ci)).attr('stroke','#111').attr('stroke-width',1.5);
-    svg.append('g').attr('transform','translate(0,'+(height-margin.bottom)+')').call(d3.axisBottom(x)).call(g=>g.select('.domain').attr('stroke','#000'));
-    svg.append('g').attr('transform','translate('+margin.left+',0)').call(d3.axisLeft(y).tickFormat(d=>d+'%')).call(g=>g.select('.domain').remove());
-  })();
+    const data = [
+      {region:'Leg', percentage:16.67, lower_ci:9.31, upper_ci:28.03, count:10},
+      {region:'Arm', percentage:15.00, lower_ci:8.10, upper_ci:26.11, count:9},
+      {region:'Neck', percentage:5.00, lower_ci:1.71, upper_ci:13.70, count:3},
+      {region:'Back', percentage:3.33, lower_ci:0.92, upper_ci:11.36, count:2}
+    ];
+    const host = d3.select('#chart-titco-ci').html('');
+    const ctr = host.append('div').attr('class','viz-controls');
+    ctr.append('span').attr('class','lbl').text('Order');
+    const sortBtns = ctr.selectAll('button.sort').data([{k:'est',t:'By estimate'},{k:'abc',t:'A to Z'}]).join('button')
+      .attr('class',d=>'viz-btn sort'+(d.k==='est'?' on':'')).text(d=>d.t);
+    ctr.append('span').attr('class','viz-sep');
+    const ovBtn = ctr.append('button').attr('class','viz-btn on').text('Arm and Leg overlap');
+    const unBtn = ctr.append('button').attr('class','viz-btn on').text('Uniform expectation (H1)');
 
+    const width = chartWidth('#chart-titco-ci'), height = 350;
+    const m = {top:72, right:170, bottom:40, left:64};
+    const xs = d3.scaleLinear().domain([0,30]).range([m.left, width-m.right]);
+    const ys = d3.scaleBand().domain(data.map(d=>d.region)).range([m.top, height-m.bottom]).padding(0.38);
+    const svg = host.append('svg').attr('class','viz').attr('viewBox',[0,0,width,height]).attr('width','100%').attr('height',height);
+
+    // grid
+    const gx = svg.append('g').attr('transform','translate(0,'+(height-m.bottom)+')')
+      .call(d3.axisBottom(xs).ticks(6).tickFormat(d=>d+'%').tickSize(0).tickPadding(10));
+    gx.select('.domain').remove();
+    svg.append('g').selectAll('line').data(xs.ticks(6)).join('line').attr('class','grid-line')
+      .attr('x1',d=>xs(d)).attr('x2',d=>xs(d)).attr('y1',m.top-8).attr('y2',height-m.bottom);
+    svg.append('text').attr('class','muted-t').attr('x',width-m.right).attr('y',height-6).attr('text-anchor','end')
+      .text('Share of pediatric RTA patients (n=60), 95% Wilson CI');
+
+    // overlap zone (Arm/Leg)
+    const ovLo = Math.max(9.31,8.10), ovHi = Math.min(28.03,26.11);
+    const ovG = svg.append('g').attr('class','dimmable');
+    const ovRect = ovG.append('rect').attr('fill',GREEN).attr('fill-opacity',0.13)
+      .attr('stroke','#13A866').attr('stroke-dasharray','3 3').attr('rx',6);
+    const ovTxt = ovG.append('text').attr('class','anno').attr('fill','#0F8A50');
+
+    // uniform expectation: 6 of 24 region matches each = 10% of 60 patients
+    const unG = svg.append('g').attr('class','dimmable');
+    unG.append('line').attr('x1',xs(10)).attr('x2',xs(10)).attr('y1',16).attr('y2',height-m.bottom)
+      .attr('stroke','#111').attr('stroke-dasharray','4 4').attr('stroke-width',1.2);
+    unG.append('text').attr('class','muted-t').attr('x',xs(10)+6).attr('y',12).attr('text-anchor','start')
+      .text('10%: expected per region if uniform (H1)');
+
+    // rows
+    const rowsG = svg.append('g');
+    const row = rowsG.selectAll('g').data(data,d=>d.region).join('g').attr('class','dimmable').style('cursor','pointer');
+    row.append('text').attr('class','anno-strong').attr('x',m.left-14).attr('text-anchor','end').attr('dy','0.35em').text(d=>d.region);
+    const band = row.append('rect').attr('rx',9).attr('fill',BLUE).attr('fill-opacity',0.28).attr('stroke',BLUE).attr('stroke-width',1.2);
+    const dot = row.append('circle').attr('r',0).attr('fill','#111').attr('stroke','#fff').attr('stroke-width',2.5);
+    const lab = row.append('text').attr('class','anno').attr('dy','0.35em').attr('opacity',0)
+      .html(d=>'<tspan font-weight="600">'+d.percentage.toFixed(1)+'%</tspan><tspan fill="#5B5F63">  '+d.lower_ci.toFixed(1)+' to '+d.upper_ci.toFixed(1)+'  ·  n='+d.count+'</tspan>');
+    row.on('mouseover',(e,d)=>{
+        showTip('<b>'+d.region+'</b>: '+d.percentage.toFixed(1)+'% ('+d.count+' of 60 patients)<br>95% CI '+d.lower_ci.toFixed(1)+' to '+d.upper_ci.toFixed(1)+'%',e);
+        row.attr('opacity',r=>r.region===d.region?1:0.3);
+      }).on('mousemove',moveTip).on('mouseout',()=>{ hideTip(); row.attr('opacity',1); });
+
+    function layout(dur, grow){
+      const bh = Math.min(20, ys.bandwidth());
+      row.transition().duration(dur).attr('transform',d=>'translate(0,'+(ys(d.region)+ys.bandwidth()/2)+')');
+      band.attr('y',-bh/2).attr('height',bh);
+      if(grow){
+        band.attr('x',d=>xs(d.percentage)).attr('width',0)
+          .transition().duration(900).delay((d,i)=>i*120).ease(d3.easeCubicOut)
+          .attr('x',d=>xs(d.lower_ci)).attr('width',d=>xs(d.upper_ci)-xs(d.lower_ci));
+        dot.transition().duration(400).delay((d,i)=>i*120).attr('r',6.5);
+        lab.attr('x',d=>xs(d.upper_ci)+10).transition().delay((d,i)=>700+i*120).duration(300).attr('opacity',1);
+      }
+      dot.attr('cx',d=>xs(d.percentage));
+      const yA = ys('Arm'), yL = ys('Leg');
+      const top = Math.min(yA,yL)-8, bot = Math.max(yA,yL)+ys.bandwidth()+8;
+      const adjacent = Math.abs(ys.domain().indexOf('Arm')-ys.domain().indexOf('Leg'))===1;
+      ovRect.transition().duration(dur).attr('x',xs(ovLo)).attr('width',xs(ovHi)-xs(ovLo)).attr('y',top).attr('height',bot-top)
+        .attr('opacity',adjacent?1:0);
+      ovTxt.attr('text-anchor','middle').transition().duration(dur)
+        .attr('x',(xs(ovLo)+xs(ovHi))/2).attr('y',top-7).attr('opacity',adjacent?1:0);
+      ovTxt.selectAll('tspan').remove();
+      ovTxt.append('tspan').attr('font-weight',600).text('Arm and Leg CIs overlap (9.3 to 26.1%)');
+      ovTxt.append('tspan').attr('fill','#5B5F63').text(': gap not decisive at n=60');
+    }
+    layout(0,false);
+
+    sortBtns.on('click',(e,d)=>{
+      sortBtns.classed('on',b=>b.k===d.k);
+      const order = d.k==='est' ? ['Leg','Arm','Neck','Back'] : ['Arm','Back','Leg','Neck'];
+      ys.domain(order); layout(600,false);
+    });
+    let ovOn = true, unOn = true;
+    ovBtn.on('click',()=>{ ovOn=!ovOn; ovBtn.classed('on',ovOn); ovG.attr('opacity',ovOn?1:0); });
+    unBtn.on('click',()=>{ unOn=!unOn; unBtn.classed('on',unOn); unG.attr('opacity',unOn?1:0); });
+
+    onVisible('#chart-titco-ci', ()=>layout(0,true));
+  })();
 })();
 </script>
 
